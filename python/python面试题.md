@@ -2,6 +2,10 @@
 
 https://www.toutiao.com/i6818132438506537479/
 
+## **Python 中的基本数据类型**
+
+字符串（String）、数字（Digit）、列表（List）、元组（Tuple）、集合（Sets）、字典（Dictionary）。
+
 ## 如何执行字符串插值？
 
 在不导入模板类的情况下，有3种方法可以插入字符串。
@@ -77,23 +81,6 @@ with open('file.p', 'rb') as f:
     loaded_obj = pickle.load(f)
 print(loaded_obj)
 #=> [{'id': 1, 'name': 'Stuffy'}, {'id': 2, 'name': 'Fluffy'}]
-```
-
-
-
-## append 和 extend 有什么区别？
-
-append 向列表中添加值，extend向列表中添加另一个列表中的值。
-
-```python
-a = [1,2,3]
-b = [1,2,3]
-a.append(6)
-print(a)
-#=> [1, 2, 3, 6]
-b.extend([4,5])
-print(b)
-#=> [1, 2, 3, 4, 5]
 ```
 
 
