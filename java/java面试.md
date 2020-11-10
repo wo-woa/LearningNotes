@@ -324,6 +324,62 @@ Executors.newFixedThreadPool(int);    //创建固定容量大小的缓冲池
 
 
 
+## 为什么不能用Executors
+
+https://www.cnblogs.com/ants/p/11343657.html#autoid-3-3-2
+
+首先我们看下 `ThreadPoolExecutor` 的完全构造函数
+
+```java
+public ThreadPoolExecutor(int corePoolSize,
+                              int maximumPoolSize,
+                              long keepAliveTime,
+                              TimeUnit unit,
+                              BlockingQueue<Runnable> workQueue,
+                              ThreadFactory threadFactory,
+                              RejectedExecutionHandler handler)
+```
+
+corePoolSize
+
+> 核心池大小，除非设置了 `allowCoreThreadTimeOut` 否则哪怕线程超过空闲时间，池中也要最少要保留这个数目的线程。
+
+> 需要注意的是，corePoolSize所需的线程并不是立即创建的，需要在提交任务之后进行创建，所以如果有大量的缓存线程数可以先提交一个空任务让线程池将线程先创建出来，从而提升后续的执行效率。
+
+maximumPoolSize
+
+> 允许的最大线程数。
+
+keepAliveTime
+
+> 空闲线程空闲存活时间，核心线程需要 `allowCoreThreadTimeOut` 为true才会退出。
+
+unit
+
+> 与 `keepAliveTime` 配合，设置 `keepAliveTime` 的单位，如：毫秒、秒。
+
+workQueue
+
+> 线程池中的任务队列。上面提到线程池的主要作用是复用线程来处理任务，所以我们需要一个队列来存放需要执行的任务，在使用池中的线程来处理这些任务，所以我们需要一个任务队列。
+
+1. 当线程数小于核心线程数时，创建线程。
+2. 当线程数大于等于核心线程数，且任务队列未满时，将任务放入任务队列。
+3. 当线程数大于等于核心线程数，且任务队列已满
+   1. 若线程数小于最大线程数，创建线程
+   2. 若线程数等于最大线程数，调用拒绝执行处理程序（默认效果为：抛出异常，拒绝任务）
+
+之所以不使用，是因为在 `workQueue` 参数直接 使用了 `new LinkedBlockingQueue()` 理论上可以无限添加任务到线程池。
+
+如果提交到线程池的任务由问题，比如 sleep 永久，会造成内存泄漏，最终导致OOM。
+
+
+
+
+
+
+
+
+
 # 数据
 
 ## sql优化方案
