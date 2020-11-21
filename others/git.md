@@ -124,3 +124,92 @@ git config user.name "two_name" ; git config user.email "two_email"
 
 
 
+## GitHub Actions使用
+
+阮一峰的GitHub Actions 入门教程 [链接](http://www.ruanyifeng.com/blog/2019/09/getting-started-with-github-actions.html)
+
+github actions 简易入门及自动部署博客实践 [链接](https://zhuanlan.zhihu.com/p/93829286)
+
+
+
+简单来说就是github给你一条小服务器，能完成一些脚本定时跑批，或者接收到push执行自动部署，类似jenkins
+
+实践自动部署
+
+```yaml
+name: deploy to aliyun oss
+on: [push]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    # 切代码到 runner
+    - uses: actions/checkout@v1
+      with:
+        submodules: true
+    # 下载 git submodule
+    - uses: srt32/git-actions@v0.0.3
+      with:
+        args: git submodule update --init --recursive
+    # 使用 node:10
+    - name: use Node.js 10.x
+      uses: actions/setup-node@v1
+      with:
+        node-version: 10.x
+    # npm install
+    - name: npm install and build
+      run: |
+        npm install
+        npm run build
+      env:
+        CI: true
+    # 设置阿里云OSS的 id/secret，存储到 github 的 secrets 中
+    - name: setup aliyun oss
+      uses: manyuanrong/setup-ossutil@master
+      with:
+        endpoint: oss-cn-beijing.aliyuncs.com
+        access-key-id: ${{ secrets.OSS_KEY_ID }}
+        access-key-secret: ${{ secrets.OSS_KEY_SECRET }}
+    - name: cp files to aliyun
+      run: ossutil cp -rf .vuepress/dist oss://shanyue-blog/
+```
+
+java程序每天跑批
+
+```yaml
+name: Bilibili
+
+on:
+   push:
+     branches: main
+   gollum:
+   workflow_dispatch:
+   schedule:
+       - cron: '10 20 * * *'
+jobs:
+  start:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Set up JDK 1.8
+      uses: actions/setup-java@v1
+      with:
+        java-version: 1.8
+    - name: Cache local Maven repository
+      uses: actions/cache@v2
+      with:
+        path: ~/.m2/repository
+        key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
+        restore-keys: |
+          ${{ runner.os }}-maven-
+    - name: Build with Maven
+      env:
+        BILI_JCT: ${{ secrets.BILI_JCT }}
+        DEDEUSERID: ${{ secrets.DEDEUSERID }}
+        SESSDATA: ${{ secrets.SESSDATA }}
+        SCKEY: ${{ secrets.SCKEY }}
+        DINGTALK: ${{secrets.DINGTALK}}
+      run:
+        mvn compile exec:java -Dexec.mainClass="top.srcrs.BiliStart" -Dexec.args="${BILI_JCT} ${SESSDATA} ${DEDEUSERID} ${SCKEY} ${DINGTALK}"
+```
+
