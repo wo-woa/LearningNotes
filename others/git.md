@@ -213,3 +213,28 @@ jobs:
         mvn compile exec:java -Dexec.mainClass="top.srcrs.BiliStart" -Dexec.args="${BILI_JCT} ${SESSDATA} ${DEDEUSERID} ${SCKEY} ${DINGTALK}"
 ```
 
+
+
+## GitFork的项目更新原项目的代码
+
+https://www.cnblogs.com/neol/p/7575148.html
+
+https://blog.csdn.net/lanyan1214/article/details/84912439
+
+1、先克隆项目到本地： 
+git clone https://github.com/iakuf/mojo 
+cd mojo 
+2、添加原作者项目的 remote 地址， 然后将代码 fetch 过来 
+git remote add sri https://github.com/kraih/mojo 
+git fetch sri 
+‘sri’相当于一个别名 
+查看本地项目目录： git remote -v 
+3、合并 
+git checkout master 
+git merge sri/master 
+如果有冲突的话，需要丢掉本地分支： 
+git reset –hard sri/master 
+4、这时你的当前本地的项目变成和原作者的主项目一样了，可以把它提交到你的GitHub库 
+git commit -am ‘更新到原作者的主分支’ 
+git push origin 
+git push -u origin master -f –强制提交
