@@ -1,4 +1,12 @@
-# 1、SpringBoot
+---
+title: SpringBoot笔记
+date: 2020-12-23 18:14:11
+tags: [SpringBoot,java,Druid,Mybatis,Shiro,Redis,Dubbo,Zokeeper]
+categories: Sql
+description: SpringBoot笔记
+---
+
+## 1、SpringBoot
 
 ## 回顾什么是Spring
 
@@ -245,7 +253,7 @@ Springboot所有自动配置都是在启动的时候扫描并加载：`spring.fa
 
 1. springboot在启动的时候，从类路径下 /META-INF/spring.factories.获取指定的值；
 
-![在这里插入图片描述](https://img-blog.csdnimg.cn/202010130811539.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzI2MDE3NTQz,size_16,color_FFFFFF,t_70#pic_center)
+![在这里插入图片描述](https://gitee.com/wowoa/typoraPic/raw/master/image2020/20201229144115.jpg)
 
 1. 将这些自动配置的类导入容器，自动配置就会生效，帮我们进行自动配置
 2. 以前我们需要手动配置的东西，现在Springboot帮我们做了
@@ -279,7 +287,7 @@ public class SpringbootApplication {
 
 **run方法流程分析**
 
-![img](https://img-service.csdnimg.cn/img_convert/82b94b960a5c946bad5512f51d95262b.png)
+![img](https://gitee.com/wowoa/typoraPic/raw/master/image2020/20201229144116.jpg)
 
 # 4、Springboot配置文件
 
@@ -548,7 +556,7 @@ public String test(Model model){
 
 ### **Thymeleaf语法**
 
-![img](https://img-service.csdnimg.cn/img_convert/53638563617df1b7c04514563cf1bed2.png)
+![img](https://gitee.com/wowoa/typoraPic/raw/master/image2020/20201229144117.jpg)
 
 ### Thymeleaf表达式
 
@@ -672,7 +680,7 @@ No-Operation: _
 
    - 在url路径属性前增加`th:`并修改url路径为`@{}`格式（js、css、img等）
 
-# 9、项目：国际化*
+# 9、项目：国际化
 
 1. 在resources下创建`i18n`文件夹，并创建`login.proterties`文件`login_zh_CN.proterties`文件`login_en_US.proterties`文件
 
@@ -1465,7 +1473,7 @@ protected void configure(AuthenticationManagerBuilder auth) throws Exception {
 ### 基本功能点
 
 Shiro 可以非常容易的开发出足够好的应用，其不仅可以用在 JavaSE 环境，也可以用在 JavaEE 环境。Shiro 可以帮助我们完成：认证、授权、加密、会话管理、与 Web 集成、缓存等。其基本功能点如下图所示：
-![img](https://img-service.csdnimg.cn/img_convert/cf2e4300a30b411ae096034b119aaa66.png)
+![img](https://gitee.com/wowoa/typoraPic/raw/master/image2020/20201229144118.jpg)
 
 - Authentication：身份认证 / 登录，验证用户是不是拥有相应的身份；
 - Authorization：授权，即权限验证，验证某个已认证的用户是否拥有某个权限；即判断用户是否能做事情，常见的如：验证某个用户是否拥有某个角色。或者细粒度的验证某个用户对某个资源是否具有某个权限；
@@ -1486,7 +1494,7 @@ Shiro 可以非常容易的开发出足够好的应用，其不仅可以用在 J
 
 我们从外部来看 Shiro ，即从应用程序角度的来观察如何使用 Shiro 完成工作。如下图：
 
-![img](https://img-service.csdnimg.cn/img_convert/df98fd2989cc597496efc71670305a9c.png)
+![img](https://gitee.com/wowoa/typoraPic/raw/master/image2020/20201229144119.jpg)
 
 可以看到：应用代码直接交互的对象是 Subject，也就是说 Shiro 的对外 API 核心就是 Subject；其每个 API 的含义：
 
@@ -1507,7 +1515,7 @@ Shiro 可以非常容易的开发出足够好的应用，其不仅可以用在 J
 
 接下来我们来从 Shiro 内部来看下 Shiro 的架构，如下图所示：
 
-![img](https://img-service.csdnimg.cn/img_convert/1387f91ea65f6d172393a8317ab5665d.png)
+![img](https://gitee.com/wowoa/typoraPic/raw/master/image2020/20201229144120.jpg)
 
 **Subject**：主体，可以看到主体可以是任何可以与应用交互的 “用户”；
 
@@ -2431,7 +2439,7 @@ RPC【Remote Procedure Call】是指远程过程调用，是一种进程间通�
 
 Dubbo基本概念
 
-![img](https://img-service.csdnimg.cn/img_convert/c666643ffa85deae03453e4b05f0dfce.png)
+![img](https://gitee.com/wowoa/typoraPic/raw/master/image2020/20201229144121.jpg)
 
 **服务提供者**（Provider）：暴露服务的服务提供方，服务提供者在启动时，向注册中心注册自己提供的服务。
 
@@ -2469,7 +2477,7 @@ l 服务消费者和提供者，在内存中累计调用次数和调用时间，
 
 3. 访问localhost:7001即可访问Dubbo-admin页面
 
-   ![img](https://img-service.csdnimg.cn/img_convert/fe8eaf5354b68eee2a6485f8aebe65c1.png)
+   ![img](https://gitee.com/wowoa/typoraPic/raw/master/image2020/20201229144122.jpg)
 
 ### 实现跨项目访问类
 

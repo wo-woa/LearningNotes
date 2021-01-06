@@ -1,3 +1,11 @@
+---
+title: ECMAScript 6
+date: 2020-11-25 12:20:11
+tags: [Html,JavaScript,ECMAScript]
+categories: web
+description: 阮一峰的ECMAScript 6 入门
+---
+
 https://es6.ruanyifeng.com/
 
 # let 和 const 命令
