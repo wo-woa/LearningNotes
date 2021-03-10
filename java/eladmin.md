@@ -119,3 +119,8 @@ public static HttpServletRequest getHttpServletRequest() {
 https://www.cnblogs.com/qdhxhz/p/9404654.html
 
 使用java自带的Collections.unmodifiableList(list)创建集合，如果list改变了，那么这个不可变集合也会改变，而使用Guava中的ImmutableList.of则不会。
+
+
+
+## BaseDTO
+
